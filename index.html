@@ -1,354 +1,193 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Harshith R | Portfolio</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Harshith R | Award‑Winning Portfolio</title>
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Reset & base */
-    *, *::before, *::after {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
+    /* Reset */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1a1a1a 0%, #0f111a 100%);
-      color: #eee;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
+      font-family: 'Space Grotesk', sans-serif;
+      background: #0d0e14;
+      color: #e0e0e3;
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      min-height:100vh;
+      transition: background 0.5s, color 0.5s;
+      display: flex;
+      flex-direction: column;
     }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-      transition: color 0.3s ease;
+    /* Toggle Light Mode */
+    .light-mode {
+      background: #f4f4f7;
+      color: #222;
     }
-    a:focus-visible {
-      outline: 2px dashed #ff5555;
-      outline-offset: 4px;
-    }
-    a:hover, a:focus {
-      color: #ff5555;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 0 1.5rem;
-    }
-
     header {
+      padding: 4rem 1rem;
       text-align: center;
-      padding: 6rem 1rem 2rem;
       position: relative;
-      z-index: 10;
-      user-select: none;
     }
-
     header h1 {
-      font-weight: 700;
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
-      letter-spacing: 0.05em;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeSlideUp 1s forwards 0.2s;
-      text-shadow: 0 2px 6px rgba(255 85 85 / 0.7);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 8vw, 5rem);
+      color: #ff6700;
+      animation: show-up 1s ease-out;
     }
-
     header p {
-      font-weight: 300;
+      margin-top: 1rem;
+      font-size: clamp(1rem, 3vw, 1.5rem);
       font-style: italic;
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      margin-top: 0.5rem;
-      color: #ddd;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeSlideUp 1s forwards 0.6s;
-      text-shadow: 0 1px 3px rgba(0 0 0 / 0.6);
+      opacity: .8;
+      animation: fade-in 1.5s ease-out;
     }
-
+    nav {
+      position: fixed; top:1rem; right:1rem;
+      z-index: 100;
+    }
+    .toggle-btn {
+      background:#ff6700; border:none; padding:.5rem 1rem;
+      color:#fff; cursor:pointer; font-size:1rem;
+      border-radius:4px;
+    }
+    main {
+      flex:1;
+    }
     section {
-      padding: clamp(3rem,4vw,4rem) 0;
-      position: relative;
-      z-index: 10;
+      padding:4rem 1rem;
+      max-width:900px; margin: auto;
     }
-
-    h2 {
-      font-weight: 600;
-      font-size: clamp(1.5rem, 3vw, 1.75rem);
-      border-bottom: 3px solid #ff5555;
-      padding-bottom: 8px;
-      margin-bottom: 2rem;
-      max-width: fit-content;
-      opacity: 0;
-      transform: translateX(-30px);
-      animation: fadeSlideRight 0.8s forwards 0.8s;
-      text-shadow: 0 1px 2px rgba(0 0 0 / 0.8);
+    section h2 {
+      font-family:'Playfair Display', serif;
+      font-size:2rem; margin-bottom:1rem;
+      border-bottom:3px solid #ff6700; display:inline-block;
+      animation: slide-right 1s ease-out;
     }
-
-    /* Projects */
+    .about p {
+      font-size:1.1rem; margin-top:1.5rem;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap:2rem;
+      margin-top:2rem;
+    }
     .project {
-      background: rgba(255 255 255 / 0.07);
-      border-radius: 16px;
-      padding: 24px 32px;
-      margin-bottom: 1.75rem;
-      box-shadow: 0 4px 20px rgba(255 85 85 / 0.15);
-      transition: transform 0.3s ease, box-shadow 0.35s ease;
-      cursor: default;
-      opacity: 0;
-      animation: fadeSlideUp 0.7s forwards;
-      animation-delay: 1s;
-      user-select: text;
-      outline-offset: 4px;
-      outline: none;
+      background: #1f1f26;
+      padding:2rem; border-radius:12px;
+      box-shadow:0 8px 20px rgba(0,0,0,.6);
+      position:relative; overflow:hidden;
+      cursor:pointer; transition:transform .3s;
     }
-    .project:focus {
-      outline: 2px dashed #ff5555;
-    }
-    .project:hover, .project:focus-visible {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(255 85 85 / 0.35);
-      background: rgba(255 255 255 / 0.12);
+    .project::before {
+      content:"AWARD"; position:absolute; top:-2rem; right:-2rem;
+      background: #ff6700; color:#fff; padding: .5rem 2rem;
+      font-weight:bold; transform: rotate(45deg);
+      opacity:0.2;
     }
     .project h3 {
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-      font-size: 1.4rem;
-      color: #ff5555;
-      text-shadow: 0 1px 1px rgba(0 0 0 / 0.6);
+      color:#ffaae2; margin-bottom:.5rem; font-size:1.5rem;
     }
-    .project p {
-      font-size: 1rem;
-      color: #ddd;
-      line-height: 1.45;
+    .project p { font-size:1rem; line-height:1.4; }
+    .project:hover {
+      transform: translateY(-8px) scale(1.03);
     }
-
-    /* Skills */
-    ul {
-      list-style-type: none;
-      font-weight: 400;
-      font-size: clamp(1rem, 1.5vw, 1.1rem);
-      color: #ccc;
-      opacity: 0;
-      transform: translateX(-20px);
-      animation: fadeSlideRight 0.8s forwards 1.3s;
+    .skills ul {
+      display:flex; flex-wrap:wrap; gap:1rem;
+      margin-top:1.5rem;
     }
-    ul li {
-      padding: 0.4rem 0;
-      border-bottom: 1px solid rgba(255 255 255 / 0.07);
-      letter-spacing: 0.02em;
+    .skills li {
+      background:#ff6700; color:#fff; padding:.5rem 1rem;
+      border-radius:4px; font-size:1rem;
+      transition:background .3s;
     }
-
-    /* Contact */
+    .skills li:hover {
+      background:#ffa533;
+    }
     .contact a {
-      color: #fff;
-      font-weight: 600;
-      position: relative;
-      font-size: 1.1rem;
-      margin-right: 24px;
-      transition: color 0.3s ease;
+      display:inline-block; margin-right:2rem;
+      color:#ff6700; font-weight:bold; position:relative;
+      transition:color .3s;
     }
     .contact a::after {
-      content: '';
-      position: absolute;
-      left: 0; bottom: -4px;
-      width: 100%; height: 3px;
-      background: #ff5555;
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-      transform-origin: right;
-      border-radius: 3px;
+      content:''; position:absolute;
+      left:0; bottom:-4px; width:100%; height:3px;
+      background:#ff6700; transform:scaleX(0); transform-origin:left;
+      transition:transform .3s;
     }
-    .contact a:hover::after,
-    .contact a:focus-visible::after {
-      transform: scaleX(1);
-      transform-origin: left;
+    .contact a:hover::after {
+      transform:scaleX(1);
     }
-
     footer {
-      text-align: center;
-      padding: 1.5rem 1rem;
-      background: rgba(0, 0, 0, 0.3);
-      letter-spacing: 0.05em;
-      font-size: 0.85rem;
-      color: #bbb;
-      position: relative;
-      z-index: 10;
-      user-select: none;
-      font-style: italic;
+      text-align:center; padding:2rem 1rem;
+      font-size:.85rem; opacity:.7;
     }
-
+    @media (max-width:600px) {
+      .contact a { display:block; margin-bottom:1rem; }
+    }
     /* Animations */
-    @keyframes fadeSlideUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes show-up {
+      from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);}
     }
-    @keyframes fadeSlideRight {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+    @keyframes fade-in {
+      from {opacity:0;} to {opacity:1;}
     }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      header h1 { font-size: 2.5rem; }
-      header p  { font-size: 1rem; }
-      section { padding: 3rem 1rem; }
-      .container {
-        padding: 0 1rem;
-      }
-      .project {
-        padding: 20px 22px;
-      }
-      .contact a {
-        display: inline-block;
-        margin-bottom: 12px;
-      }
-    }
-
-    /* Particle overlay */
-    #particles-js {
-      position: fixed;
-      top:0; left:0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 1;
-      pointer-events: none;
-      user-select: none;
-      filter: brightness(0.85);
+    @keyframes slide-right {
+      from {opacity:0; transform:translateX(-20px);} to {opacity:1; transform:translateX(0);}
     }
   </style>
 </head>
 <body>
-
-<!-- Particle.js container -->
-<div id="particles-js" aria-hidden="true"></div>
-
-<header class="container" role="banner">
-  <h1 tabindex="0">Harshith R</h1>
-  <p tabindex="0" aria-label="Professional tagline">Aspiring Tech Innovator. Impact-Driven Marketer.</p>
-</header>
-
-<main>
-  <section class="container" id="about" role="region" aria-labelledby="about-heading" tabindex="0">
-    <h2 id="about-heading">About Me</h2>
-    <p>I’m a passionate developer and marketer blending creativity with technology to build smarter solutions. From developing impactful mobile apps to designing intuitive user experiences, I bring ideas to life with purpose.</p>
-  </section>
-
-  <section class="container" id="projects" role="region" aria-labelledby="projects-heading">
-    <h2 id="projects-heading">Projects</h2>
-
-    <article class="project" tabindex="0" role="article" aria-label="Project Smart Health App NFC-based">
-      <h3>Smart Health App (NFC-based)</h3>
-      <p>A real-time medical data platform for doctors and patients using NFC technology, face detection, and Firebase integration.</p>
-    </article>
-
-    <article class="project" tabindex="0" role="article" aria-label="Project Face Expression Tracker">
-      <h3>Face Expression Tracker</h3>
-      <p>Web app using face-api.js to detect live facial expressions and respond accordingly. Designed for user feedback analysis.</p>
-    </article>
-  </section>
-
-  <section class="container" id="skills" role="region" aria-labelledby="skills-heading" tabindex="0">
-    <h2 id="skills-heading">Skills</h2>
-    <ul>
-      <li>Android App Development (Java)</li>
-      <li>Firebase Integration</li>
-      <li>Face Recognition (face-api.js, MediaPipe)</li>
-      <li>NFC Integration (ESP32)</li>
-      <li>UI/UX Design &amp; Branding</li>
-    </ul>
-  </section>
-
-  <section class="container contact" id="contact" role="region" aria-labelledby="contact-heading" tabindex="0">
-    <h2 id="contact-heading">Contact</h2>
-    <p>
-      <a href="mailto:harshith.r53583@gmail.com" aria-label="Send email to Harshith R" title="Email Harshith R">Email</a>
-      <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener" aria-label="LinkedIn profile of Harshith R" title="LinkedIn Profile">LinkedIn</a>
-      <a href="https://github.com/yourgithub" target="_blank" rel="noopener" aria-label="GitHub profile of Harshith R" title="GitHub Profile">GitHub</a>
-    </p>
-  </section>
-</main>
-
-<footer class="container" role="contentinfo">&copy; 2025 Harshith R. All rights reserved.</footer>
-
-<!-- Particles.js CDN -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-  /* Initialize particles.js with a subtle and elegant configuration */
-  particlesJS('particles-js',{
-    "particles": {
-      "number": {
-        "value": 70,
-        "density": {
-          "enable": true,
-          "value_area": 1000
-        }
-      },
-      "color": {
-        "value": "#ff5555"
-      },
-      "shape": {
-        "type": "circle"
-      },
-      "opacity": {
-        "value": 0.12,
-        "random": true,
-        "anim": {
-          "enable": true,
-          "speed": 1.5,
-          "opacity_min": 0.05,
-          "sync": false
-        }
-      },
-      "size": {
-        "value": 3,
-        "random": true,
-        "anim": {
-          "enable": false
-        }
-      },
-      "move": {
-        "enable": true,
-        "speed": 0.4,
-        "direction": "none",
-        "random": true,
-        "straight": false,
-        "out_mode": "out",
-        "bounce": false
-      },
-      "line_linked": {
-        "enable": false
-      }
-    },
-    "interactivity": {
-      "detect_on": "window",
-      "events": {
-        "onhover": {
-          "enable": false
-        },
-        "onclick": {
-          "enable": false
-        },
-        "resize": true
-      }
-    },
-    "retina_detect": true
-  });
-</script>
-
+  <nav>
+    <button class="toggle-btn" onclick="document.body.classList.toggle('light-mode')">
+      Toggle Light/Dark
+    </button>
+  </nav>
+  <header>
+    <h1 tabindex="0">Harshith R</h1>
+    <p tabindex="0">Creative Technologist. Award-Winning Maker.</p>
+  </header>
+  <main>
+    <section class="about" id="about">
+      <h2>About Me</h2>
+      <p>I craft impactful digital experiences combining code and strategy. From NFC-powered health platforms to dynamic facial-feedback web apps — I build meaningful tech that resonates.</p>
+    </section>
+    <section class="projects" id="projects">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <div class="project" tabindex="0">
+          <h3>Smart Health App</h3>
+          <p>An NFC‑based medical data platform with real‑time patient tracking, face‑detection, and Firebase backend integration.</p>
+        </div>
+        <div class="project" tabindex="0">
+          <h3>Face Expression Tracker</h3>
+          <p>A web app using face‑api.js to analyze live facial expressions for user sentiment and feedback loops.</p>
+        </div>
+      </div>
+    </section>
+    <section class="skills" id="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>Android Development (Java)</li>
+        <li>Firebase & Cloud Integration</li>
+        <li>Face Recognition (face‑api.js, MediaPipe)</li>
+        <li>NFC & ESP32 IoT</li>
+        <li>UI/UX & Branding</li>
+      </ul>
+    </section>
+    <section class="contact" id="contact">
+      <h2>Contact</h2>
+      <p>
+        <a href="mailto:harshith.r53583@gmail.com" title="Email Harshith">Email</a>
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/yourgithub" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Harshith R. Built for creative impact.
+  </footer>
 </body>
 </html>
