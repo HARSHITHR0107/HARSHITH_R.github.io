@@ -10,7 +10,7 @@
 
   <style>
     /* Reset & base */
-    * {
+    *, *::before, *::after {
       margin: 0; padding: 0; box-sizing: border-box;
     }
     html {
@@ -23,9 +23,24 @@
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:focus-visible {
+      outline: 2px dashed #ff5555;
+      outline-offset: 4px;
+    }
+    a:hover, a:focus {
+      color: #ff5555;
+    }
+
     .container {
       max-width: 900px;
       margin: auto;
@@ -37,103 +52,125 @@
       padding: 6rem 1rem 2rem;
       position: relative;
       z-index: 10;
+      user-select: none;
     }
 
     header h1 {
       font-weight: 700;
-      font-size: 3.5rem;
-      letter-spacing: 0.02em;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      letter-spacing: 0.05em;
       opacity: 0;
       transform: translateY(30px);
       animation: fadeSlideUp 1s forwards 0.2s;
+      text-shadow: 0 2px 6px rgba(255 85 85 / 0.7);
     }
 
     header p {
       font-weight: 300;
       font-style: italic;
-      font-size: 1.25rem;
+      font-size: clamp(1rem, 2vw, 1.25rem);
       margin-top: 0.5rem;
       color: #ddd;
       opacity: 0;
       transform: translateY(20px);
       animation: fadeSlideUp 1s forwards 0.6s;
+      text-shadow: 0 1px 3px rgba(0 0 0 / 0.6);
     }
 
     section {
-      padding: 4rem 0;
+      padding: clamp(3rem,4vw,4rem) 0;
       position: relative;
       z-index: 10;
     }
 
     h2 {
       font-weight: 600;
-      font-size: 1.75rem;
-      border-bottom: 2px solid #eee;
+      font-size: clamp(1.5rem, 3vw, 1.75rem);
+      border-bottom: 3px solid #ff5555;
       padding-bottom: 8px;
       margin-bottom: 2rem;
       max-width: fit-content;
       opacity: 0;
       transform: translateX(-30px);
       animation: fadeSlideRight 0.8s forwards 0.8s;
+      text-shadow: 0 1px 2px rgba(0 0 0 / 0.8);
     }
 
     /* Projects */
     .project {
-      background: rgba(255 255 255 / 0.05);
-      border-radius: 12px;
-      padding: 20px 28px;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 0 12px rgba(255 255 255 / 0.04);
+      background: rgba(255 255 255 / 0.07);
+      border-radius: 16px;
+      padding: 24px 32px;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 4px 20px rgba(255 85 85 / 0.15);
       transition: transform 0.3s ease, box-shadow 0.35s ease;
       cursor: default;
       opacity: 0;
       animation: fadeSlideUp 0.7s forwards;
       animation-delay: 1s;
+      user-select: text;
+      outline-offset: 4px;
+      outline: none;
     }
-
-    /* Stagger project fade effect */
-    .project:nth-child(2) { animation-delay: 1.1s; }
-    .project:nth-child(3) { animation-delay: 1.2s; }
-
-    .project:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 14px 30px rgba(255 255 255 / 0.2);
+    .project:focus {
+      outline: 2px dashed #ff5555;
+    }
+    .project:hover, .project:focus-visible {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(255 85 85 / 0.35);
+      background: rgba(255 255 255 / 0.12);
+    }
+    .project h3 {
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #ff5555;
+      text-shadow: 0 1px 1px rgba(0 0 0 / 0.6);
+    }
+    .project p {
+      font-size: 1rem;
+      color: #ddd;
+      line-height: 1.45;
     }
 
     /* Skills */
     ul {
       list-style-type: none;
       font-weight: 400;
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 1.5vw, 1.1rem);
       color: #ccc;
       opacity: 0;
       transform: translateX(-20px);
       animation: fadeSlideRight 0.8s forwards 1.3s;
     }
     ul li {
-      padding: 0.3rem 0;
+      padding: 0.4rem 0;
       border-bottom: 1px solid rgba(255 255 255 / 0.07);
+      letter-spacing: 0.02em;
     }
 
     /* Contact */
     .contact a {
       color: #fff;
-      text-decoration: none;
-      margin-right: 20px;
       font-weight: 600;
       position: relative;
+      font-size: 1.1rem;
+      margin-right: 24px;
+      transition: color 0.3s ease;
     }
     .contact a::after {
       content: '';
       position: absolute;
-      left: 0; bottom: -3px;
-      width: 100%; height: 2px;
+      left: 0; bottom: -4px;
+      width: 100%; height: 3px;
       background: #ff5555;
       transform: scaleX(0);
       transition: transform 0.3s ease;
       transform-origin: right;
+      border-radius: 3px;
     }
-    .contact a:hover::after {
+    .contact a:hover::after,
+    .contact a:focus-visible::after {
       transform: scaleX(1);
       transform-origin: left;
     }
@@ -141,12 +178,14 @@
     footer {
       text-align: center;
       padding: 1.5rem 1rem;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.3);
       letter-spacing: 0.05em;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #bbb;
       position: relative;
       z-index: 10;
+      user-select: none;
+      font-style: italic;
     }
 
     /* Animations */
@@ -168,6 +207,16 @@
       header h1 { font-size: 2.5rem; }
       header p  { font-size: 1rem; }
       section { padding: 3rem 1rem; }
+      .container {
+        padding: 0 1rem;
+      }
+      .project {
+        padding: 20px 22px;
+      }
+      .contact a {
+        display: inline-block;
+        margin-bottom: 12px;
+      }
     }
 
     /* Particle overlay */
@@ -178,89 +227,103 @@
       height: 100vh;
       z-index: 1;
       pointer-events: none;
+      user-select: none;
+      filter: brightness(0.85);
     }
   </style>
 </head>
 <body>
 
 <!-- Particle.js container -->
-<div id="particles-js"></div>
+<div id="particles-js" aria-hidden="true"></div>
 
-<header class="container">
-  <h1>Harshith R</h1>
-  <p>Aspiring Tech Innovator. Impact-Driven Marketer.</p>
+<header class="container" role="banner">
+  <h1 tabindex="0">Harshith R</h1>
+  <p tabindex="0" aria-label="Professional tagline">Aspiring Tech Innovator. Impact-Driven Marketer.</p>
 </header>
 
-<section class="container" id="about">
-  <h2>About Me</h2>
-  <p>I’m a passionate developer and marketer blending creativity with technology to build smarter solutions. From developing impactful mobile apps to designing intuitive user experiences, I bring ideas to life with purpose.</p>
-</section>
+<main>
+  <section class="container" id="about" role="region" aria-labelledby="about-heading" tabindex="0">
+    <h2 id="about-heading">About Me</h2>
+    <p>I’m a passionate developer and marketer blending creativity with technology to build smarter solutions. From developing impactful mobile apps to designing intuitive user experiences, I bring ideas to life with purpose.</p>
+  </section>
 
-<section class="container" id="projects">
-  <h2>Projects</h2>
-  <div class="project" tabindex="0" role="region" aria-label="Project Smart Health App NFC-based">
-    <h3>Smart Health App (NFC-based)</h3>
-    <p>A real-time medical data platform for doctors and patients using NFC technology, face detection, and Firebase integration.</p>
-  </div>
+  <section class="container" id="projects" role="region" aria-labelledby="projects-heading">
+    <h2 id="projects-heading">Projects</h2>
 
-  <div class="project" tabindex="0" role="region" aria-label="Project Face Expression Tracker">
-    <h3>Face Expression Tracker</h3>
-    <p>Web app using face-api.js to detect live facial expressions and respond accordingly. Designed for user feedback analysis.</p>
-  </div>
-</section>
+    <article class="project" tabindex="0" role="article" aria-label="Project Smart Health App NFC-based">
+      <h3>Smart Health App (NFC-based)</h3>
+      <p>A real-time medical data platform for doctors and patients using NFC technology, face detection, and Firebase integration.</p>
+    </article>
 
-<section class="container" id="skills">
-  <h2>Skills</h2>
-  <ul>
-    <li>Android App Development (Java)</li>
-    <li>Firebase Integration</li>
-    <li>Face Recognition (face-api.js, MediaPipe)</li>
-    <li>NFC Integration (ESP32)</li>
-    <li>UI/UX Design & Branding</li>
-  </ul>
-</section>
+    <article class="project" tabindex="0" role="article" aria-label="Project Face Expression Tracker">
+      <h3>Face Expression Tracker</h3>
+      <p>Web app using face-api.js to detect live facial expressions and respond accordingly. Designed for user feedback analysis.</p>
+    </article>
+  </section>
 
-<section class="container contact" id="contact">
-  <h2>Contact</h2>
-  <p>
-    <a href="mailto:harshith.r53583@gmail.com" aria-label="Email Harshith R">Email</a>
-    <a href="" target="_blank" rel="noopener" aria-label="LinkedIn profile of Harshith R">LinkedIn</a>
-    <a href="" target="_blank" rel="noopener" aria-label="GitHub profile of Harshith R">GitHub</a>
-  </p>
-</section>
+  <section class="container" id="skills" role="region" aria-labelledby="skills-heading" tabindex="0">
+    <h2 id="skills-heading">Skills</h2>
+    <ul>
+      <li>Android App Development (Java)</li>
+      <li>Firebase Integration</li>
+      <li>Face Recognition (face-api.js, MediaPipe)</li>
+      <li>NFC Integration (ESP32)</li>
+      <li>UI/UX Design &amp; Branding</li>
+    </ul>
+  </section>
 
-<footer class="container">&copy; 2025 Harshith R. All rights reserved.</footer>
+  <section class="container contact" id="contact" role="region" aria-labelledby="contact-heading" tabindex="0">
+    <h2 id="contact-heading">Contact</h2>
+    <p>
+      <a href="mailto:harshith.r53583@gmail.com" aria-label="Send email to Harshith R" title="Email Harshith R">Email</a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener" aria-label="LinkedIn profile of Harshith R" title="LinkedIn Profile">LinkedIn</a>
+      <a href="https://github.com/yourgithub" target="_blank" rel="noopener" aria-label="GitHub profile of Harshith R" title="GitHub Profile">GitHub</a>
+    </p>
+  </section>
+</main>
+
+<footer class="container" role="contentinfo">&copy; 2025 Harshith R. All rights reserved.</footer>
 
 <!-- Particles.js CDN -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-  /* Initialize particles.js */
+  /* Initialize particles.js with a subtle and elegant configuration */
   particlesJS('particles-js',{
     "particles": {
       "number": {
-        "value": 80,
+        "value": 70,
         "density": {
           "enable": true,
-          "value_area": 900
+          "value_area": 1000
         }
       },
       "color": {
-        "value": "#ffffff"
+        "value": "#ff5555"
       },
       "shape": {
         "type": "circle"
       },
       "opacity": {
-        "value": 0.15,
-        "random": true
+        "value": 0.12,
+        "random": true,
+        "anim": {
+          "enable": true,
+          "speed": 1.5,
+          "opacity_min": 0.05,
+          "sync": false
+        }
       },
       "size": {
-        "value": 2,
-        "random": true
+        "value": 3,
+        "random": true,
+        "anim": {
+          "enable": false
+        }
       },
       "move": {
         "enable": true,
-        "speed": 0.3,
+        "speed": 0.4,
         "direction": "none",
         "random": true,
         "straight": false,
