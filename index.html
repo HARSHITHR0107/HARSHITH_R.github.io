@@ -1,193 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Harshith R | Award‑Winning Portfolio</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dominic - UI/UX Designer</title>
   <style>
-    /* Reset */
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; font-size:16px; }
-    body {
-      font-family: 'Space Grotesk', sans-serif;
-      background: #0d0e14;
-      color: #e0e0e3;
-      line-height: 1.6;
-      min-height:100vh;
-      transition: background 0.5s, color 0.5s;
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+    * { margin:0; padding:0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: #0d0d0d;
+      color: white;
+      overflow-x: hidden;
+    }
+    .container { display: flex; flex-direction: column; min-height: 100vh; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; }
+    .menu { font-size: 2rem; cursor: pointer; }
+    .content {
+      flex: 1;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
     }
-    /* Toggle Light Mode */
-    .light-mode {
-      background: #f4f4f7;
-      color: #222;
+    .left { flex: 1; }
+    .left h3 { font-weight: 400; color: #aaa; }
+    .left h1 { font-size: 5vw; font-weight: 700; margin: 10px 0; letter-spacing: 1px; }
+    .left p { color: #ccc; max-width: 500px; margin-bottom: 20px; }
+    .left button {
+      padding: 14px 28px;
+      font-size: 1rem;
+      background-color: orange;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.3s ease;
     }
-    header {
-      padding: 4rem 1rem;
-      text-align: center;
+    .left button:hover { background-color: #ff9900; }
+    .right { flex: 1; display: flex; justify-content: center; align-items: center; }
+    .right img {
+      height: 80vh;
+      width: auto;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 0 60px rgba(255, 165, 0, 0.25);
+    }
+    /* Skills Marquee Section */
+    .skills-wrapper {
       position: relative;
+      overflow: hidden;
+      background: #0d0d0d;
+      height: 40px;
+      margin-top: 10px;
     }
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 8vw, 5rem);
-      color: #ff6700;
-      animation: show-up 1s ease-out;
+    .skills-track {
+      display: flex;
+      width: fit-content;
+      align-items: center;
     }
-    header p {
-      margin-top: 1rem;
-      font-size: clamp(1rem, 3vw, 1.5rem);
-      font-style: italic;
-      opacity: .8;
-      animation: fade-in 1.5s ease-out;
+    .skills-track span {
+      font-size: 0.95rem;
+      color: #777;
+      margin-right: 60px;
+      white-space: nowrap;
     }
-    nav {
-      position: fixed; top:1rem; right:1rem;
-      z-index: 100;
+    .skills-fade {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 60px;
+      z-index: 2;
+      pointer-events: none;
     }
-    .toggle-btn {
-      background:#ff6700; border:none; padding:.5rem 1rem;
-      color:#fff; cursor:pointer; font-size:1rem;
-      border-radius:4px;
+    .skills-fade-left { left: 0; background: linear-gradient(to right, #0d0d0d 0%, transparent 100%); }
+    .skills-fade-right { right: 0; background: linear-gradient(to left, #0d0d0d 0%, transparent 100%); }
+    @media (max-width: 768px) {
+      .content { flex-direction: column; padding: 20px; text-align: center; }
+      .right img { height: 300px; }
+      .left h1 { font-size: 2.5rem; }
+      .skills-track span { margin-right: 30px; }
     }
-    main {
-      flex:1;
+    .social-icons { margin-top: 20px; display: flex; gap: 20px; }
+    .social-icons a {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #1e1e1e; padding: 10px; border-radius: 50%; transition: background 0.3s;
     }
-    section {
-      padding:4rem 1rem;
-      max-width:900px; margin: auto;
+    .social-icons a:hover { background: orange; }
+    .social-icons img { width: 20px; height: 20px; }
+    .about-section { padding: 80px 60px; background-color: #0d0d0d; color: white; }
+    .about-container { display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; align-items: flex-start; }
+    .about-left { flex: 1; min-width: 280px; max-width: 600px; }
+    .about-left h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 20px; }
+    .about-left p { font-size: 1rem; line-height: 1.8; color: #ccc; margin-bottom: 20px; }
+    .about-right { flex: 1; min-width: 280px; display: flex; justify-content: center; }
+    .image-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .image-grid img {
+      width: 100%; border-radius: 10px; object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    section h2 {
-      font-family:'Playfair Display', serif;
-      font-size:2rem; margin-bottom:1rem;
-      border-bottom:3px solid #ff6700; display:inline-block;
-      animation: slide-right 1s ease-out;
+    .image-grid img:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 165, 0, 0.2); }
+    @media (max-width: 768px) {
+      .about-container { flex-direction: column; align-items: center; }
+      .image-grid { grid-template-columns: 1fr 1fr; }
+      .about-left h2 { font-size: 2rem; }
     }
-    .about p {
-      font-size:1.1rem; margin-top:1.5rem;
+    /* Work Marquee */
+    .work-marquee {
+      background: #0d0d0d;
+      color: white;
+      padding: 80px 20px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
     }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-      gap:2rem;
-      margin-top:2rem;
+    .marquee-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      height: 180px;
+      margin-bottom: 40px;
     }
-    .project {
-      background: #1f1f26;
-      padding:2rem; border-radius:12px;
-      box-shadow:0 8px 20px rgba(0,0,0,.6);
-      position:relative; overflow:hidden;
-      cursor:pointer; transition:transform .3s;
+    .marquee-track {
+      display: flex;
+      gap: 40px;
+      align-items: center;
     }
-    .project::before {
-      content:"AWARD"; position:absolute; top:-2rem; right:-2rem;
-      background: #ff6700; color:#fff; padding: .5rem 2rem;
-      font-weight:bold; transform: rotate(45deg);
-      opacity:0.2;
+    .marquee-track img {
+      width: 140px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 165, 0, 0.4);
     }
-    .project h3 {
-      color:#ffaae2; margin-bottom:.5rem; font-size:1.5rem;
+    .fade-left,
+    .fade-right {
+      position: absolute;
+      top: 0;
+      width: 80px;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
     }
-    .project p { font-size:1rem; line-height:1.4; }
-    .project:hover {
-      transform: translateY(-8px) scale(1.03);
+    .fade-left { left: 0; background: linear-gradient(to right, #0d0d0d, transparent); }
+    .fade-right { right: 0; background: linear-gradient(to left, #0d0d0d, transparent); }
+    .marquee-content h2 {
+      font-size: 2.8rem; font-weight: bold; margin-bottom: 20px;
     }
-    .skills ul {
-      display:flex; flex-wrap:wrap; gap:1rem;
-      margin-top:1.5rem;
+    .marquee-content h2 span { color: orange; }
+    .marquee-content p {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      color: #ccc;
+      font-size: 1rem;
+      line-height: 1.6;
     }
-    .skills li {
-      background:#ff6700; color:#fff; padding:.5rem 1rem;
-      border-radius:4px; font-size:1rem;
-      transition:background .3s;
+    .marquee-content button {
+      padding: 14px 32px;
+      background-color: orange;
+      color: black;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
-    .skills li:hover {
-      background:#ffa533;
-    }
-    .contact a {
-      display:inline-block; margin-right:2rem;
-      color:#ff6700; font-weight:bold; position:relative;
-      transition:color .3s;
-    }
-    .contact a::after {
-      content:''; position:absolute;
-      left:0; bottom:-4px; width:100%; height:3px;
-      background:#ff6700; transform:scaleX(0); transform-origin:left;
-      transition:transform .3s;
-    }
-    .contact a:hover::after {
-      transform:scaleX(1);
-    }
-    footer {
-      text-align:center; padding:2rem 1rem;
-      font-size:.85rem; opacity:.7;
-    }
-    @media (max-width:600px) {
-      .contact a { display:block; margin-bottom:1rem; }
-    }
-    /* Animations */
-    @keyframes show-up {
-      from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);}
-    }
-    @keyframes fade-in {
-      from {opacity:0;} to {opacity:1;}
-    }
-    @keyframes slide-right {
-      from {opacity:0; transform:translateX(-20px);} to {opacity:1; transform:translateX(0);}
+    .marquee-content button:hover { background-color: #ff9900; }
+    @media (max-width: 768px) {
+      .marquee-track img { width: 100px; height: 130px; }
+      .marquee-content h2 { font-size: 2rem; }
+      .marquee-content p { font-size: 0.9rem; padding: 0 10px; }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <button class="toggle-btn" onclick="document.body.classList.toggle('light-mode')">
-      Toggle Light/Dark
-    </button>
-  </nav>
-  <header>
-    <h1 tabindex="0">Harshith R</h1>
-    <p tabindex="0">Creative Technologist. Award-Winning Maker.</p>
-  </header>
-  <main>
-    <section class="about" id="about">
-      <h2>About Me</h2>
-      <p>I craft impactful digital experiences combining code and strategy. From NFC-powered health platforms to dynamic facial-feedback web apps — I build meaningful tech that resonates.</p>
-    </section>
-    <section class="projects" id="projects">
-      <h2>Projects</h2>
-      <div class="projects-grid">
-        <div class="project" tabindex="0">
-          <h3>Smart Health App</h3>
-          <p>An NFC‑based medical data platform with real‑time patient tracking, face‑detection, and Firebase backend integration.</p>
+  <div class="container">
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="menu">☰</div>
+    </div>
+    <!-- Main Content -->
+    <div class="content">
+      <div class="left">
+        <h3>Developer | Designer | Builder of Smart & Seamless Digital Solutions</h3>
+        <h1>HARSHITH R.</h1>
+        <p>Hi, I’m Harshith R – an innovative full-stack developer blending modern design and advanced technologies to craft seamless digital interactions that solve real-world problems.</p>
+        <button onclick="alert('Redirecting to Portfolio...')">See my works</button>
+        <!-- Social Buttons -->
+        <div class="social-icons">
+          <a href="mailto:harshith.r53583@gmail.com" target="_blank" title="Email">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/new-post.png" alt="Email" />
+          </a>
+          <a href="https://github.com/HARSHITHR0107" target="_blank" title="GitHub">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/github.png" alt="GitHub" />
+          </a>
+          <a href="https://www.linkedin.com/in/harshith-r-95b28125b/" target="_blank" title="LinkedIn">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/linkedin.png" alt="LinkedIn" />
+          </a>
+          <a href="https://nfcura.netlify.app/" target="_blank" title="Website">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/domain.png" alt="Website" />
+          </a>
         </div>
-        <div class="project" tabindex="0">
-          <h3>Face Expression Tracker</h3>
-          <p>A web app using face‑api.js to analyze live facial expressions for user sentiment and feedback loops.</p>
+      </div>
+      <div class="right">
+        <img src="profile.png" alt="Harshith" />
+      </div>
+    </div>
+    <!-- Skills Marquee -->
+    <div class="skills-wrapper">
+      <div class="skills-track" id="skillsTrack">
+        <!-- Content will be duplicated with JS -->
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>JavaScript</span>
+        <span>React</span>
+        <span>Node.js</span>
+        <span>Firebase</span>
+        <span>UI/UX</span>
+        <span>Figma</span>
+        <span>Git</span>
+        <span>REST APIs</span>
+      </div>
+      <div class="skills-fade skills-fade-left"></div>
+      <div class="skills-fade skills-fade-right"></div>
+    </div>
+    <!-- About Section -->
+    <section class="about-section" id="about">
+      <div class="about-container">
+        <!-- Left: Text -->
+        <div class="about-left">
+          <h2>About Me</h2>
+          <p>
+            I’m Harshith R, a full-stack developer and creative technologist with a deep passion for building smart, efficient, and scalable digital solutions.
+          </p>
+          <p>
+            From mobile apps to IoT systems, I specialize in combining technologies like NFC, AI, and Firebase to create seamless, impactful user experiences.
+          </p>
+          <p>
+            Whether it's a health-tech application or a smart automation system, my goal is to design systems that are not only functional but meaningful.
+          </p>
+        </div>
+        <!-- Right: Images -->
+        <div class="about-right">
+          <div class="image-grid">
+            <img src="project1.png" alt="Project 1">
+            <img src="project2.png" alt="Project 2">
+            <img src="project3.png" alt="Project 3">
+            <img src="project4.png" alt="Project 4">
+          </div>
         </div>
       </div>
     </section>
-    <section class="skills" id="skills">
-      <h2>Skills</h2>
-      <ul>
-        <li>Android Development (Java)</li>
-        <li>Firebase & Cloud Integration</li>
-        <li>Face Recognition (face‑api.js, MediaPipe)</li>
-        <li>NFC & ESP32 IoT</li>
-        <li>UI/UX & Branding</li>
-      </ul>
+    <!-- Showcase Arc Section -->
+    <section class="work-marquee">
+      <div class="marquee-wrapper">
+        <div class="marquee-track" id="workTrack">
+          <!-- Content will be duplicated with JS -->
+          <img src="1.png" alt="Work 1" />
+          <img src="2.png" alt="Work 2" />
+          <img src="3.png" alt="Work 3" />
+          <img src="4.png" alt="Work 4" />
+          <img src="5.png" alt="Work 5" />
+        </div>
+        <div class="fade-left"></div>
+        <div class="fade-right"></div>
+      </div>
+      <div class="marquee-content">
+        <h2>Let's Create Something <span>Exceptional</span></h2>
+        <p>Let’s collaborate to build a bold solution that delivers high-performance user impact.</p>
+        <button onclick="alert('Redirecting to Contact...')">Contact Me</button>
+      </div>
     </section>
-    <section class="contact" id="contact">
-      <h2>Contact</h2>
-      <p>
-        <a href="mailto:harshith.r53583@gmail.com" title="Email Harshith">Email</a>
-        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/yourgithub" target="_blank" rel="noopener">GitHub</a>
-      </p>
-    </section>
-  </main>
-  <footer>
-    &copy; 2025 Harshith R. Built for creative impact.
-  </footer>
+  </div>
+<script>
+/**
+ * Make any marquee (.skills-track and .marquee-track) perfectly seamless for any content width.
+ * - Duplicates the innerHtml for seamlessness (for both skills and works).
+ * - Uses keyframes with the correct pixel translation.
+ * - Adapts animation duration to content width (for consistent speed).
+ */
+
+// ----------- Marquee for Skills ----------
+function createSeamlessMarquee(trackSelector, animName, durationFor1000px = 15) {
+  const track = document.querySelector(trackSelector);
+  if (!track) return;
+  // Duplicate content for seamless scroll
+  track.innerHTML += track.innerHTML;
+
+  // Wait next tick for paint
+  setTimeout(() => {
+    const trackWidth = track.scrollWidth / 2; // width of one set
+    // Remove any previous keyframes
+    const styleId = `${animName}-keyframes`;
+    let existingStyle = document.getElementById(styleId);
+    if(existingStyle) existingStyle.remove();
+    // Create keyframes based on the real width
+    const styleEl = document.createElement('style');
+    styleEl.id = styleId;
+    styleEl.innerHTML = `
+    @keyframes ${animName} {
+      0% { transform: translate3d(0,0,0); }
+      100% { transform: translate3d(-${trackWidth}px,0,0); }
+    }`;
+    document.head.appendChild(styleEl);
+
+    // Control speed: (trackWidth px) / (speed) = duration; here, 1000px=durationFor1000px seconds
+    const duration = (trackWidth / 1000) * durationFor1000px;
+    track.style.animation = `${animName} ${duration}s linear infinite`;
+
+    // Responsive on resize: update animation if width changes
+    let lastWidth = trackWidth;
+    window.addEventListener('resize', function resizeMarquee(){
+      const newWidth = track.scrollWidth / 2;
+      if(Math.abs(lastWidth - newWidth) > 2){ // only if changed enough
+        styleEl.innerHTML = `
+        @keyframes ${animName} {
+          0% { transform: translate3d(0,0,0);}
+          100% { transform: translate3d(-${newWidth}px,0,0);}
+        }`;
+        const newDuration = (newWidth / 1000) * durationFor1000px;
+        track.style.animation = `${animName} ${newDuration}s linear infinite`;
+        lastWidth = newWidth;
+      }
+    });
+  }, 16);
+}
+createSeamlessMarquee('#skillsTrack', 'skillsMarquee', 20);
+
+// ----------- Marquee for Work ----------
+createSeamlessMarquee('#workTrack', 'workMarquee', 34);
+</script>
 </body>
 </html>
